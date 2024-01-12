@@ -1,0 +1,25 @@
+def main():
+    entrada = input()
+    tamanho_resultado = -1
+    resultado = []
+    while True:
+        try: 
+            tamanho = 0
+            aberto = 0
+            for i in entrada:
+                if i == '[':
+                    aberto += 1
+                elif i == ']':
+                    aberto -= 1
+                if i == ',' and aberto == 1:
+                    tamanho += 1
+            if tamanho > tamanho_resultado and entrada != '[]':
+                tamanho_resultado = tamanho
+                resultado = entrada
+            entrada = input()
+        except:
+            break
+    print(resultado)
+
+if __name__ == '__main__':
+    main()
