@@ -44,30 +44,29 @@ def prim(v, visitados, min_edges, e, grupos, soma = 0):
         print(soma)
 
 def build_max_heap(v):
-    for i in range(len(v)//2, -1, -1):
-        max_heapify(v, i)
+    heap_size = len(v)
+    for i in range(heap_size//2, -1, -1):
+        max_heapify(v, i, heap_size)
 
 def heap_sort(v):
     build_max_heap(v)
     for i in range(len(v) - 1, 0, -1):
         v[i], v[0] = v[0], v[i]
-        v_heap = v[:i]
-        max_heapify(v_heap, 0)
-        v[:i] = v_heap 
+        max_heapify(v, 0, i)
     return v
 
-def max_heapify(v, i):
+def max_heapify(v, i, heap_size):
     l = i*2 + 1
     r = i*2 + 2
-    if l < len(v) and (v[l].peso > v[i].peso or (v[l].peso == v[i].peso and v[l].origem > v[i].origem) or (v[l].peso == v[i].peso and v[l].origem == v[i].origem and v[l].destino > v[i].destino)):
+    if l < heap_size and (v[l].peso > v[i].peso or (v[l].peso == v[i].peso and v[l].origem > v[i].origem) or (v[l].peso == v[i].peso and v[l].origem == v[i].origem and v[l].destino > v[i].destino)):
         maior = l
     else:
         maior = i
-    if r < len(v) and (v[r].peso > v[maior].peso or (v[r].peso == v[maior].peso and v[r].origem > v[maior].origem) or (v[r].peso == v[maior].peso and v[r].origem == v[maior].origem and v[r].destino > v[maior].destino)):
+    if r < heap_size and (v[r].peso > v[maior].peso or (v[r].peso == v[maior].peso and v[r].origem > v[maior].origem) or (v[r].peso == v[maior].peso and v[r].origem == v[maior].origem and v[r].destino > v[maior].destino)):
         maior = r
     if maior != i:
         v[i], v[maior] = v[maior], v[i]
-        max_heapify(v, maior)
+        max_heapify(v, maior, heap_size)
 
 def main():
     n, m = input().split()
